@@ -1,0 +1,40 @@
+<div class="theme-toggle-container">
+  <div class="theme-toggle">
+    <button 
+      (click)="toggleTheme()"
+      class="theme-btn"
+      [title]="getThemeTooltip()"
+      [class.dark]="isDarkMode"
+    >
+      <span class="theme-icon">{{ getThemeIcon() }}</span>
+    </button>
+
+    <!-- Menu déroulant des options de theme -->
+    <div class="theme-options">
+      <button 
+        (click)="setTheme('light')"
+        class="theme-option"
+        [class.active]="currentTheme === 'light'"
+      >
+        <span class="option-icon">☀️</span>
+        <span class="option-text">Clair</span>
+      </button>
+      <button 
+        (click)="setTheme('dark')"
+        class="theme-option"
+        [class.active]="currentTheme === 'dark'"
+      >
+        <span class="option-icon">🌙</span>
+        <span class="option-text">Sombre</span>
+      </button>
+      <button 
+        (click)="setTheme('auto')"
+        class="theme-option"
+        [class.active]="currentTheme === 'auto'"
+      >
+        <span class="option-icon">⚙️</span>
+        <span class="option-text">Auto</span>
+      </button>
+    </div>
+  </div>
+</div>

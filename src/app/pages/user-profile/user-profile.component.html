@@ -1,0 +1,342 @@
+<div class="user-profile-container">
+  <!-- Header -->
+  <div class="profile-header">
+    <div class="user-info">
+      <div class="avatar-section">
+        <img 
+          [src]="currentUser?.avatar || 'https://via.placeholder.com/100x100?text=?'" 
+          [alt]="currentUser?.firstName"
+          class="user-avatar"
+        >
+        <div class="avatar-overlay">
+          <button class="change-avatar-btn">📷</button>
+        </div>
+      </div>
+      <div class="user-details">
+        <h1>{{ currentUser?.firstName }} {{ currentUser?.lastName }}</h1>
+        <p class="user-email">{{ currentUser?.email }}</p>
+        <p class="member-since">
+          Membre depuis {{ currentUser?.createdAt | date:'MMMM yyyy' }}
+        </p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button *ngIf="!currentUser" (click)="simulateLogin()" class="btn-primary">
+        Se connecter (démo)
+      </button>
+      <button *ngIf="currentUser" (click)="logout()" class="btn-outline">
+        Se déconnecter
+      </button>
+    </div>
+  </div>
+
+  <div class="profile-content" *ngIf="currentUser; else notLoggedIn">
+    <!-- Navigation Tabs -->
+    <nav class="profile-tabs">
+      <button 
+        [class.active]="activeTab === 'profile'"
+        (click)="setActiveTab('profile')"
+        class="tab-btn"
+      >
+        👤 Informations personnelles
+      </button>
+      <button 
+        [class.active]="activeTab === 'address'"
+        (click)="setActiveTab('address')"
+        class="tab-btn"
+      >
+        🏠 Adresse
+      </button>
+      <button 
+        [class.active]="activeTab === 'orders'"
+        (click)="setActiveTab('orders')"
+        class="tab-btn"
+      >
+        📦 Mes commandes
+      </button>
+      <button 
+        [class.active]="activeTab === 'security'"
+        (click)="setActiveTab('security')"
+        class="tab-btn"
+      >
+        🔒 Sécurité
+      </button>
+    </nav>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <!-- Profile Tab -->
+      <div *ngIf="activeTab === 'profile'" class="tab-pane">
+        <div class="pane-header">
+          <h2>Informations personnelles</h2>
+          <button 
+            (click)="toggleEdit()" 
+            class="edit-btn"
+            [class.editing]="isEditing"
+          >
+            {{ isEditing ? 'Annuler' : '✏️ Modifier' }}
+          </button>
+        </div>
+
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+          <div formGroupName="personalInfo" class="form-section">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Prénom *</label>
+                <input 
+                  type="text" 
+                  formControlName="firstName" 
+                  class="form-input"
+                  [readonly]="!isEditing"
+                >
+              </div>
+              <div class="form-group">
+                <label>Nom *</label>
+                <input 
+                  type="text" 
+                  formControlName="lastName" 
+                  class="form-input"
+                  [readonly]="!isEditing"
+                >
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email *</label>
+                <input 
+                  type="email" 
+                  formControlName="email" 
+                  class="form-input"
+                  [readonly]="!isEditing"
+                >
+              </div>
+              <div class="form-group">
+                <label>Téléphone</label>
+                <input 
+                  type="tel" 
+                  formControlName="phone" 
+                  class="form-input"
+                  [readonly]="!isEditing"
+                >
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="isEditing" class="form-actions">
+            <button 
+              type="submit" 
+              class="btn-primary"
+              [disabled]="!profileForm.get('personalInfo')?.valid || isLoading"
+            >
+              <span *ngIf="!isLoading">Enregistrer</span>
+              <span *ngIf="isLoading" class="loading-text">Enregistrement...</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Address Tab -->
+      <div *ngIf="activeTab === 'address'" class="tab-pane">
+        <div class="pane-header">
+          <h2>Adresse de livraison</h2>
+          <button 
+            (click)="toggleEdit()" 
+            class="edit-btn"
+            [class.editing]="isEditing"
+          >
+            {{ isEditing ? 'Annuler' : '✏️ Modifier' }}
+          </button>
+        </div>
+
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+          <div formGroupName="address" class="form-section">
+            <div class="form-group">
+              <label>Adresse *</label>
+              <input 
+                type="text" 
+                formControlName="street" 
+                class="form-input"
+                [readonly]="!isEditing"
+                placeholder="Numéro et rue"
+              >
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Ville *</label>
+                <input 
+                  type="text" 
+                  formControlName="city" 
+                  class="form-input"
+                  [readonly]="!isEditing"
+                >
+              </div>
+              <div class="form-group">
+                <label>Code postal *</label>
+                <input 
+                  type="text" 
+                  formControlName="zipCode" 
+                  class="form-input"
+                  [readonly]="!isEditing"
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Pays *</label>
+              <select 
+                formControlName="country" 
+                class="form-input"
+                [disabled]="!isEditing"
+              >
+                <option value="France">France</option>
+                <option value="Belgique">Belgique</option>
+                <option value="Suisse">Suisse</option>
+                <option value="Luxembourg">Luxembourg</option>
+              </select>
+            </div>
+          </div>
+
+          <div *ngIf="isEditing" class="form-actions">
+            <button 
+              type="submit" 
+              class="btn-primary"
+              [disabled]="!profileForm.get('address')?.valid || isLoading"
+            >
+              <span *ngIf="!isLoading">Enregistrer l'adresse</span>
+              <span *ngIf="isLoading" class="loading-text">Enregistrement...</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Orders Tab -->
+      <div *ngIf="activeTab === 'orders'" class="tab-pane">
+        <h2>Historique des commandes</h2>
+        
+        <div *ngIf="orderHistory.length === 0" class="empty-state">
+          <div class="empty-icon">📦</div>
+          <h3>Aucune commande</h3>
+          <p>Vous n'avez pas encore passé de commande.</p>
+          <button routerLink="/products" class="btn-primary">
+            Découvrir nos produits
+          </button>
+        </div>
+
+        <div *ngIf="orderHistory.length > 0" class="orders-list">
+          <div *ngFor="let order of orderHistory" class="order-card">
+            <div class="order-header">
+              <div class="order-info">
+                <h4>Commande {{ order.id }}</h4>
+                <p class="order-date">
+                  Passée le {{ order.date | date:'dd/MM/yyyy' }}
+                </p>
+                <p class="order-items">
+                  {{ getOrderItemsPreview(order.items) }}
+                </p>
+              </div>
+              <div class="order-meta">
+                <div class="order-status" [class]="getOrderStatusClass(order.status)">
+                  {{ getOrderStatusText(order.status) }}
+                </div>
+                <div class="order-total">
+                  {{ order.total | number:'1.2-2' }} €
+                </div>
+              </div>
+            </div>
+            
+            <div class="order-actions">
+              <button class="btn-outline small">
+                📄 Voir le détail
+              </button>
+              <button class="btn-outline small">
+                🔁 Commander à nouveau
+              </button>
+              <button *ngIf="order.status === 'delivered'" class="btn-outline small">
+                ⭐ Noter les produits
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Tab -->
+      <div *ngIf="activeTab === 'security'" class="tab-pane">
+        <h2>Sécurité du compte</h2>
+        
+        <form [formGroup]="profileForm" (ngSubmit)="changePassword()">
+          <div formGroupName="security" class="form-section">
+            <div class="form-group">
+              <label>Mot de passe actuel</label>
+              <input 
+                type="password" 
+                formControlName="currentPassword" 
+                class="form-input"
+                placeholder="Entrez votre mot de passe actuel"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Nouveau mot de passe</label>
+              <input 
+                type="password" 
+                formControlName="newPassword" 
+                class="form-input"
+                placeholder="Au moins 6 caractères"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Confirmer le nouveau mot de passe</label>
+              <input 
+                type="password" 
+                formControlName="confirmPassword" 
+                class="form-input"
+                placeholder="Retapez votre nouveau mot de passe"
+              >
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button 
+              type="submit" 
+              class="btn-primary"
+              [disabled]="isLoading"
+            >
+              <span *ngIf="!isLoading">Changer le mot de passe</span>
+              <span *ngIf="isLoading" class="loading-text">Changement...</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="security-notes">
+          <h4>Conseils de sécurité :</h4>
+          <ul>
+            <li>Utilisez un mot de passe unique et complexe</li>
+            <li>Ne partagez jamais votre mot de passe</li>
+            <li>Changez régulièrement votre mot de passe</li>
+            <li>Utilisez l'authentification à deux facteurs si disponible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #notLoggedIn>
+    <div class="not-logged-in">
+      <div class="login-prompt">
+        <h2>Connectez-vous pour gérer votre profil</h2>
+        <p>Accédez à votre historique de commandes, modifiez vos informations personnelles et plus encore.</p>
+        <div class="prompt-actions">
+          <button (click)="simulateLogin()" class="btn-primary large">
+            Se connecter (démo)
+          </button>
+          <button routerLink="/products" class="btn-outline large">
+            Continuer mes achats
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

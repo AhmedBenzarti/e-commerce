@@ -1,0 +1,111 @@
+<div class="search-bar-container">
+  <div class="search-input-wrapper">
+    <input
+      #searchInput
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="onSearchInput()"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (keydown.enter)="onSearchSubmit()"
+      placeholder="Rechercher un produit, marque, catégorie..."
+      class="search-input"
+    >
+    
+    <button 
+      *ngIf="searchQuery" 
+      (click)="clearSearch()" 
+      class="clear-btn"
+      type="button"
+    >
+      ✕
+    </button>
+    
+    <button 
+      (click)="onSearchSubmit()" 
+      class="search-btn"
+      type="button"
+    >
+      🔍
+    </button>
+  </div>
+
+  <!-- Suggestions Dropdown -->
+  <div *ngIf="showSuggestions" class="suggestions-dropdown">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="suggestion-item loading">
+      <div class="loading-spinner"></div>
+      <span>Recherche en cours...</span>
+    </div>
+
+    <!-- Suggestions de recherche -->
+    <div *ngIf="suggestions.length > 0 && !isLoading" class="suggestions-section">
+  <div class="section-title">Suggestions</div>
+  <div 
+    *ngFor="let suggestion of suggestions" 
+    (mousedown)="onSuggestionSelect(suggestion)"
+    class="suggestion-item"
+    [class.product]="suggestion.type === 'product'"
+  >
+    <span class="suggestion-icon">{{ getSuggestionIcon(suggestion) }}</span>
+    <div class="suggestion-content">
+      <span class="suggestion-text">{{ getSuggestionDisplayText(suggestion) }}</span>
+      <span *ngIf="suggestion.count" class="suggestion-count">
+        {{ suggestion.count }} résultat(s)
+      </span>
+      <span *ngIf="suggestion.type === 'product' && suggestion.product && suggestion.product.price" class="suggestion-price">
+  {{ suggestion.product.price }} €
+</span>
+    </div>
+  </div>
+</div>
+
+    <!-- Historique de recherche -->
+    <div *ngIf="searchHistory.length > 0 && suggestions.length === 0 && !isLoading" class="suggestions-section">
+      <div class="section-header">
+        <span class="section-title">Historique</span>
+        <button (click)="onClearHistory()" class="clear-history-btn">Effacer</button>
+      </div>
+      <div 
+        *ngFor="let query of searchHistory" 
+        (mousedown)="onHistorySelect(query)"
+        class="suggestion-item history"
+      >
+        <span class="suggestion-icon">🕒</span>
+        <span class="suggestion-text">{{ query }}</span>
+      </div>
+    </div>
+
+    <!-- Recherches populaires -->
+    <div *ngIf="popularSearches.length > 0 && suggestions.length === 0 && !isLoading" class="suggestions-section">
+      <div class="section-title">Recherches populaires</div>
+      <div class="popular-searches">
+        <span 
+          *ngFor="let query of popularSearches" 
+          (mousedown)="onHistorySelect(query)"
+          class="popular-tag"
+        >
+          {{ query }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Aucun résultat -->
+    <div *ngIf="suggestions.length === 0 && searchHistory.length === 0 && !isLoading && searchQuery.length >= 2" class="suggestion-item no-results">
+      <span class="suggestion-icon">😕</span>
+      <span>Aucune suggestion pour "{{ searchQuery }}"</span>
+    </div>
+
+    <!-- Message d'aide -->
+    <div *ngIf="!searchQuery && !isLoading" class="suggestions-section">
+      <div class="help-message">
+        <p>💡 <strong>Astuces de recherche :</strong></p>
+        <ul>
+          <li>Utilisez des mots-clés comme "smartphone", "casque audio"</li>
+          <li>Recherchez par marque : "TechMaster", "SoundMax"</li>
+          <li>Explorez par catégorie : "Électronique", "Mode"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

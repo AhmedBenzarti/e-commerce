@@ -1,0 +1,379 @@
+.order-confirmation-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 80vh;
+}
+
+.confirmation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Header */
+.confirmation-header {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.confirmation-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.success-message {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Cards */
+.order-summary-card,
+.delivery-info-card,
+.payment-info-card,
+.next-steps-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Order Header */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f8f9fa;
+}
+
+.order-info h2 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.order-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.order-number {
+  font-weight: 600;
+  color: #667eea;
+  font-size: 1.1rem;
+}
+
+.order-date {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.order-status {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.order-status.processing {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.order-status.shipped {
+  background: #cce7ff;
+  color: #004085;
+}
+
+.order-status.delivered {
+  background: #d4edda;
+  color: #155724;
+}
+
+/* Order Items */
+.order-items h3 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.item-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.item-quantity {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.item-price {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+/* Order Totals */
+.order-totals {
+  border-top: 2px solid #e9ecef;
+  padding-top: 20px;
+}
+
+.total-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  color: #666;
+}
+
+.grand-total {
+  border-top: 1px solid #e9ecef;
+  margin-top: 10px;
+  padding-top: 15px;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+/* Delivery Info */
+.delivery-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.address-section h4,
+.delivery-estimate h4 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.delivery-date {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.delivery-note {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Payment Info */
+.payment-status.paid {
+  color: #28a745;
+  font-weight: 600;
+}
+
+/* Next Steps */
+.steps-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  background: #e7f3ff;
+  opacity: 1;
+  border-left: 4px solid #667eea;
+}
+
+.step-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.step-content h4 {
+  color: #333;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.step-content p {
+  color: #666;
+  margin: 0;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary, .btn-outline {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: #667eea;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #5a6fd8;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.btn-outline:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Support Info */
+.support-info {
+  text-align: center;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.support-info h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.support-info p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.contact-options {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.contact-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #667eea;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .order-confirmation-container {
+    padding: 15px;
+  }
+
+  .confirmation-header h1 {
+    font-size: 2rem;
+  }
+
+  .order-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .delivery-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .contact-options {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media print {
+  .action-buttons,
+  .support-info {
+    display: none;
+  }
+}

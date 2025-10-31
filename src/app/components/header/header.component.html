@@ -1,0 +1,90 @@
+<header class="header">
+  <div class="header-container">
+    <!-- Logo -->
+    <div class="logo">
+      <a routerLink="/" (click)="closeMobileMenu()">
+        <h1>🛒 E-Shop</h1>
+      </a>
+    </div>
+
+    <!-- Search Bar Desktop -->
+    <div class="search-bar-desktop">
+      <app-search-bar
+        (search)="onSearch($event)"
+        (suggestionSelected)="onSuggestionSelected($event)"
+      ></app-search-bar>
+    </div>
+
+    <!-- Navigation Desktop -->
+    <nav class="nav-desktop">
+      <ul class="nav-list">
+        <li *ngFor="let item of navigationItems" class="nav-item">
+          <a 
+            [routerLink]="item.path" 
+            class="nav-link"
+            [class.cart-link]="item.label === 'Panier'"
+          >
+            <span class="nav-icon">{{ item.icon }}</span>
+            {{ item.label }}
+            <span *ngIf="item.label === 'Panier' && cartItemCount > 0" class="cart-badge">
+              {{ cartItemCount }}
+            </span>
+          </a>
+        </li>
+        <!-- Theme Toggle -->
+        <li class="nav-item">
+          <app-theme-toggle></app-theme-toggle>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.active]="isMobileMenuOpen">
+    <!-- Search Bar Mobile -->
+    <div class="search-bar-mobile">
+      <app-search-bar
+        (search)="onSearch($event); closeMobileMenu()"
+        (suggestionSelected)="onSuggestionSelected($event); closeMobileMenu()"
+      ></app-search-bar>
+    </div>
+
+    <nav class="nav-mobile">
+      <ul class="nav-list-mobile">
+        <li *ngFor="let item of navigationItems" class="nav-item-mobile">
+          <a 
+            [routerLink]="item.path" 
+            class="nav-link-mobile"
+            (click)="closeMobileMenu()"
+          >
+            <span class="nav-icon">{{ item.icon }}</span>
+            {{ item.label }}
+            <span *ngIf="item.label === 'Panier' && cartItemCount > 0" class="cart-badge-mobile">
+              {{ cartItemCount }}
+            </span>
+          </a>
+        </li>
+        <!-- Theme Toggle Mobile -->
+        <li class="nav-item-mobile">
+          <div class="theme-toggle-mobile">
+            <app-theme-toggle></app-theme-toggle>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Overlay -->
+  <div 
+    class="mobile-overlay" 
+    [class.active]="isMobileMenuOpen"
+    (click)="closeMobileMenu()"
+  ></div>
+</header>

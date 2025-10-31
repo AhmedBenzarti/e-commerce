@@ -1,0 +1,262 @@
+.header {
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+/* Logo */
+.logo h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--text-primary);
+}
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Search Bar Desktop */
+.search-bar-desktop {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 30px;
+}
+
+/* Desktop Navigation */
+.nav-desktop {
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  background: var(--bg-secondary);
+  color: var(--primary-color);
+}
+
+.nav-link.cart-link {
+  position: relative;
+}
+
+.cart-badge {
+  background: var(--error-color);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+  position: absolute;
+  top: -5px;
+  right: 5px;
+}
+
+.nav-icon {
+  font-size: 1.1rem;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  gap: 4px;
+}
+
+.mobile-menu-btn span {
+  width: 25px;
+  height: 3px;
+  background: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+  border-top: 1px solid var(--border-color);
+}
+
+.mobile-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Search Bar Mobile */
+.search-bar-mobile {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-list-mobile {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-item-mobile {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-item-mobile:last-child {
+  border-bottom: none;
+}
+
+.nav-link-mobile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 15px 10px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  position: relative;
+}
+
+.nav-link-mobile:hover {
+  background: var(--bg-secondary);
+}
+
+.cart-badge-mobile {
+  background: var(--error-color);
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+/* Mobile Overlay */
+.mobile-overlay {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 998;
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.theme-toggle-mobile {
+  padding: 15px 10px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 15px;
+  }
+
+  .search-bar-desktop {
+    display: none;
+  }
+
+  .nav-desktop {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+
+  .nav-link-mobile {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    height: 60px;
+  }
+
+  .mobile-menu {
+    top: 60px;
+  }
+
+  .mobile-overlay {
+    top: 60px;
+  }
+
+  .logo h1 {
+    font-size: 1.3rem;
+  }
+
+  .search-bar-mobile {
+    padding: 10px;
+  }
+}

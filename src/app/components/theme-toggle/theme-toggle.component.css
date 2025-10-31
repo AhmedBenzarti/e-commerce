@@ -1,0 +1,119 @@
+.theme-toggle-container {
+  position: relative;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.theme-btn {
+  background: none;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.theme-btn:hover {
+  border-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.theme-btn.dark {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+.theme-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 8px;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  min-width: 120px;
+}
+
+.theme-toggle:hover .theme-options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: left;
+  color: var(--text-primary);
+}
+
+.theme-option:hover {
+  background: var(--bg-secondary);
+}
+
+.theme-option.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.option-icon {
+  font-size: 1rem;
+}
+
+.option-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Version mobile dans le header */
+:host-context(.nav-item) .theme-options {
+  right: -10px;
+}
+
+:host-context(.theme-toggle-mobile) .theme-toggle {
+  justify-content: center;
+}
+
+:host-context(.theme-toggle-mobile) .theme-options {
+  right: 50%;
+  transform: translateX(50%) translateY(-10px);
+}
+
+:host-context(.theme-toggle-mobile) .theme-toggle:hover .theme-options {
+  transform: translateX(50%) translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .theme-options {
+    right: -50px;
+  }
+  
+  :host-context(.nav-item) .theme-options {
+    right: -10px;
+  }
+}

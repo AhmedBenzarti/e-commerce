@@ -1,0 +1,260 @@
+.search-bar-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 50px 12px 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 25px;
+  font-size: 1rem;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.clear-btn {
+  position: absolute;
+  right: 45px;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+  background: #f8f9fa;
+  color: #333;
+}
+
+.search-btn {
+  position: absolute;
+  right: 5px;
+  background: #667eea;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  background: #5a6fd8;
+  transform: scale(1.05);
+}
+
+/* Suggestions Dropdown */
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin-top: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.suggestions-section {
+  padding: 15px 0;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.suggestions-section:last-child {
+  border-bottom: none;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  padding: 0 15px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.clear-history-btn {
+  background: none;
+  border: none;
+  color: #667eea;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.clear-history-btn:hover {
+  background: #f8f9fa;
+}
+
+/* Suggestion Items */
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.suggestion-item:hover {
+  background: #f8f9fa;
+}
+
+.suggestion-item.product {
+  padding: 12px 15px;
+}
+
+.suggestion-item.loading {
+  justify-content: center;
+  color: #666;
+}
+
+.suggestion-item.no-results {
+  color: #666;
+  justify-content: center;
+}
+
+.suggestion-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.suggestion-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.suggestion-text {
+  font-weight: 500;
+  color: #333;
+}
+
+.suggestion-count {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.suggestion-price {
+  font-size: 0.9rem;
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* Popular Searches */
+.popular-searches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 15px;
+}
+
+.popular-tag {
+  background: #f8f9fa;
+  color: #667eea;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+}
+
+.popular-tag:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Help Message */
+.help-message {
+  padding: 0 15px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.help-message p {
+  margin: 0 0 10px 0;
+}
+
+.help-message ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.help-message li {
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .search-bar-container {
+    max-width: 100%;
+  }
+
+  .suggestions-dropdown {
+    position: fixed;
+    top: 60px;
+    left: 10px;
+    right: 10px;
+    max-height: 60vh;
+  }
+
+  .search-input {
+    font-size: 16px; /* Évite le zoom sur iOS */
+  }
+}
