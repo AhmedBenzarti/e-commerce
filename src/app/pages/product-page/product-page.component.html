@@ -1,0 +1,141 @@
+<!-- Page Add Section Begin -->
+<section class="page-add">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="page-breadcrumb">
+                    <h2>Shirts<span>.</span></h2>
+                    <a routerLink="/">Home</a>
+                    <a routerLink="/categories">Dresses</a>
+                    <a class="active" href="#">Night Dresses</a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <img src="assets/img/add.jpg" alt="Promotion">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page Add Section End -->
+
+<!-- Product Page Section Begin -->
+<section class="product-page">
+    <div class="container">
+        <div class="product-control">
+            <a href="#">Previous</a>
+            <a href="#">Next</a>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product-slider owl-carousel">
+                    <div *ngFor="let image of product.images" class="product-img">
+                        <figure>
+                            <img [src]="image" [alt]="product.name">
+                            <div *ngIf="product.status" class="p-status" [class]="getStatusClass(product.status)">
+                                {{ product.status }}
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="product-content">
+                    <h2>{{ product.name }}</h2>
+                    <div class="pc-meta">
+                        <h5>${{ product.price.toFixed(2) }}</h5>
+                        <div class="rating">
+                            <i *ngFor="let star of [1,2,3,4,5]" 
+                               class="fa fa-star" 
+                               [class.fa-star-o]="star > product.rating"></i>
+                        </div>
+                    </div>
+                    <p>{{ product.description }}</p>
+                    
+                    <!-- Sélection de taille -->
+                    <div class="size-selection mb-3">
+                        <strong>Size: </strong>
+                        <div class="btn-group" role="group">
+                            <button *ngFor="let size of product.sizes" 
+                                    type="button" 
+                                    class="btn btn-outline-secondary btn-sm"
+                                    [class.active]="selectedSize === size"
+                                    (click)="selectedSize = size">
+                                {{ size }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sélection de couleur -->
+                    <div class="color-selection mb-3">
+                        <strong>Color: </strong>
+                        <div class="btn-group" role="group">
+                            <button *ngFor="let color of product.colors" 
+                                    type="button" 
+                                    class="btn btn-outline-secondary btn-sm"
+                                    [class.active]="selectedColor === color"
+                                    (click)="selectedColor = color">
+                                {{ color }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <ul class="tags">
+                        <li><span>Category :</span> {{ product.category }}</li>
+                        <li><span>Tags :</span> {{ product.tags.join(', ') }}</li>
+                    </ul>
+                    
+                    <div class="product-quantity">
+                        <div class="pro-qty">
+                            <button (click)="decreaseQuantity()" class="qty-btn">-</button>
+                            <input type="text" [value]="quantity" readonly>
+                            <button (click)="increaseQuantity()" class="qty-btn">+</button>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="primary-btn pc-btn" (click)="addToCart(); $event.preventDefault()">
+                        Add to cart
+                    </a>
+                    
+                    <ul class="p-info">
+                        <li>Product Information</li>
+                        <li>Reviews</li>
+                        <li>Product Care</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Page Section End -->
+
+<!-- Related Product Section Begin -->
+<section class="related-product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="section-title">
+                    <h2>Related Products</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngFor="let relatedProduct of relatedProducts" class="col-lg-3 col-sm-6">
+                <div class="single-product-item">
+                    <figure>
+                        <a [routerLink]="['/product-page', relatedProduct.id]">
+                            <img [src]="relatedProduct.image" [alt]="relatedProduct.name">
+                        </a>
+                        <div *ngIf="relatedProduct.status" class="p-status" [class]="getStatusClass(relatedProduct.status)">
+                            {{ relatedProduct.status }}
+                        </div>
+                    </figure>
+                    <div class="product-text">
+                        <h6>{{ relatedProduct.name }}</h6>
+                        <p>${{ relatedProduct.price.toFixed(2) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Related Product Section End -->

@@ -1,0 +1,21 @@
+.single-slider-item {
+    height: 800px;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .single-slider-item {
+        height: 500px;
+    }
+}
+
+@media (max-width: 576px) {
+    .single-slider-item {
+        height: 400px;
+    }
+}

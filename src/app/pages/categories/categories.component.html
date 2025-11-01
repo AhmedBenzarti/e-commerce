@@ -1,0 +1,199 @@
+<!-- Page Add Section Begin -->
+<section class="page-add">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="page-breadcrumb">
+                    <h2>{{ category.name }}<span>.</span></h2>
+                    <a *ngFor="let item of category.breadcrumb; let last = last" 
+                       [class.active]="last"
+                       [routerLink]="last ? null : '/'">
+                        {{ item }}
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <img src="assets/img/add.jpg" alt="Categories Promotion">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page Add Section End -->
+
+<!-- Categories Page Section Begin -->
+<section class="categories-page spad">
+    <div class="container">
+        <div class="categories-controls">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="categories-filter">
+                        <div class="cf-left">
+                            <form action="#">
+                                <select class="sort" (change)="onSortChange($event)">
+                                    <option *ngFor="let option of sortOptions" [value]="option.value">
+                                        {{ option.label }}
+                                    </option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="cf-right">
+                            <span>{{ totalProducts }} Products</span>
+                            <a *ngFor="let option of itemsPerPageOptions" 
+                               href="#"
+                               (click)="onItemsPerPageChange(option); $event.preventDefault()"
+                               [class.active]="selectedItemsPerPage === option">
+                                {{ option }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Produit principal (grand) -->
+            <div class="col-lg-6 col-md-6" *ngIf="displayedProducts[0]">
+                <div class="single-product-item">
+                    <figure>
+                        <img [src]="displayedProducts[0].image" [alt]="displayedProducts[0].name">
+                        <div *ngIf="displayedProducts[0].status" 
+                             class="p-status" 
+                             [class]="getStatusClass(displayedProducts[0].status)">
+                            {{ displayedProducts[0].status }}
+                        </div>
+                        <div *ngIf="displayedProducts[0].hasHoverIcon" class="hover-icon">
+                            <a [href]="displayedProducts[0].image" class="pop-up">
+                                <img src="assets/img/icons/zoom-plus.png" alt="Zoom">
+                            </a>
+                        </div>
+                    </figure>
+                    <div class="product-text">
+                        <a [routerLink]="['/product-page', displayedProducts[0].id]">
+                            <h6>{{ displayedProducts[0].name }}</h6>
+                        </a>
+                        <p>${{ displayedProducts[0].price.toFixed(2) }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Première ligne imbriquée (4 produits) -->
+            <div class="col-lg-6 col-md-6" *ngIf="displayedProducts.length > 1">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6" *ngFor="let product of displayedProducts.slice(1, 5)">
+                        <div class="single-product-item">
+                            <figure>
+                                <img [src]="product.image" [alt]="product.name">
+                                <div *ngIf="product.status" 
+                                     class="p-status" 
+                                     [class]="getStatusClass(product.status)">
+                                    {{ product.status }}
+                                </div>
+                                <div *ngIf="product.hasHoverIcon" class="hover-icon">
+                                    <a [href]="product.image" class="pop-up">
+                                        <img src="assets/img/icons/zoom-plus.png" alt="Zoom">
+                                    </a>
+                                </div>
+                            </figure>
+                            <div class="product-text">
+                                <a [routerLink]="['/product-page', product.id]">
+                                    <h6>{{ product.name }}</h6>
+                                </a>
+                                <p>${{ product.price.toFixed(2) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produits en grille 4 colonnes -->
+            <div class="col-lg-3 col-md-6" *ngFor="let product of displayedProducts.slice(5, 9)">
+                <div class="single-product-item">
+                    <figure>
+                        <img [src]="product.image" [alt]="product.name">
+                        <div *ngIf="product.status" 
+                             class="p-status" 
+                             [class]="getStatusClass(product.status)">
+                            {{ product.status }}
+                        </div>
+                        <div *ngIf="product.hasHoverIcon" class="hover-icon">
+                            <a [href]="product.image" class="pop-up">
+                                <img src="assets/img/icons/zoom-plus.png" alt="Zoom">
+                            </a>
+                        </div>
+                    </figure>
+                    <div class="product-text">
+                        <a [routerLink]="['/product-page', product.id]">
+                            <h6>{{ product.name }}</h6>
+                        </a>
+                        <p>${{ product.price.toFixed(2) }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deuxième ligne imbriquée (4 produits) -->
+            <div class="col-lg-6 col-md-6" *ngIf="displayedProducts.length > 9">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6" *ngFor="let product of displayedProducts.slice(9, 13)">
+                        <div class="single-product-item">
+                            <figure>
+                                <img [src]="product.image" [alt]="product.name">
+                                <div *ngIf="product.status" 
+                                     class="p-status" 
+                                     [class]="getStatusClass(product.status)">
+                                    {{ product.status }}
+                                </div>
+                                <div *ngIf="product.hasHoverIcon" class="hover-icon">
+                                    <a [href]="product.image" class="pop-up">
+                                        <img src="assets/img/icons/zoom-plus.png" alt="Zoom">
+                                    </a>
+                                </div>
+                            </figure>
+                            <div class="product-text">
+                                <a [routerLink]="['/product-page', product.id]">
+                                    <h6>{{ product.name }}</h6>
+                                </a>
+                                <p>${{ product.price.toFixed(2) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dernier produit principal -->
+            <div class="col-lg-6 col-md-6" *ngIf="displayedProducts[13]">
+                <div class="single-product-item">
+                    <figure>
+                        <img [src]="displayedProducts[13].image" [alt]="displayedProducts[13].name">
+                        <div *ngIf="displayedProducts[13].status" 
+                             class="p-status" 
+                             [class]="getStatusClass(displayedProducts[13].status)">
+                            {{ displayedProducts[13].status }}
+                        </div>
+                        <div *ngIf="displayedProducts[13].hasHoverIcon" class="hover-icon">
+                            <a [href]="displayedProducts[13].image" class="pop-up">
+                                <img src="assets/img/icons/zoom-plus.png" alt="Zoom">
+                            </a>
+                        </div>
+                    </figure>
+                    <div class="product-text">
+                        <a [routerLink]="['/product-page', displayedProducts[13].id]">
+                            <h6>{{ displayedProducts[13].name }}</h6>
+                        </a>
+                        <p>${{ displayedProducts[13].price.toFixed(2) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="more-product" *ngIf="canLoadMore()">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <a href="#" class="primary-btn" (click)="loadMore(); $event.preventDefault()">
+                        Load More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Categories Page Section End -->

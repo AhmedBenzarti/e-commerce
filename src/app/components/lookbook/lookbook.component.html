@@ -1,0 +1,23 @@
+<!-- Lookbok Section Begin -->
+<section class="lookbok-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-1">
+                <div class="lookbok-left">
+                    <div class="section-title">
+                        <h2>{{ lookbookData.title }}</h2>
+                    </div>
+                    <p>{{ lookbookData.description }}</p>
+                    <a routerLink="/lookbook" class="primary-btn look-btn">See More</a>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="lookbok-pic">
+                    <img [src]="lookbookData.image" [alt]="lookbookData.imageText">
+                    <div class="pic-text">{{ lookbookData.imageText }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Lookbok Section End -->

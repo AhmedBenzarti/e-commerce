@@ -31,7 +31,8 @@
             "src/assets/css/owl.carousel.min.css",
             "src/assets/css/magnific-popup.css",
             "src/assets/css/slicknav.min.css",
-            "src/assets/css/style.css"
+            "src/assets/css/style.css",
+            "src/styles.css"
           ],
           "scripts": [
             "src/assets/js/jquery-3.3.1.min.js",

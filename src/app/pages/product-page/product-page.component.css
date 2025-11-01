@@ -1,0 +1,154 @@
+/* Product Page Specific Styles */
+.page-add {
+    padding: 60px 0;
+    background-color: #f8f8f8;
+}
+
+.page-breadcrumb a {
+    color: #666;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.page-breadcrumb a.active {
+    color: #e7ab3c;
+    font-weight: 600;
+}
+
+.page-breadcrumb a:after {
+    content: '/';
+    margin-left: 10px;
+}
+
+.page-breadcrumb a:last-child:after {
+    content: '';
+}
+
+.product-control {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.product-control a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+}
+
+.product-slider .product-img {
+    text-align: center;
+}
+
+.product-content h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.pc-meta {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pc-meta h5 {
+    font-size: 24px;
+    color: #e7ab3c;
+    margin-right: 20px;
+    margin-bottom: 0;
+}
+
+.rating {
+    color: #e7ab3c;
+}
+
+.tags {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+.tags li {
+    margin-bottom: 10px;
+}
+
+.tags span {
+    font-weight: 600;
+    color: #333;
+}
+
+.pro-qty {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.qty-btn {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.pro-qty input {
+    width: 50px;
+    border: none;
+    text-align: center;
+    padding: 8px 0;
+}
+
+.pc-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #e7ab3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.pc-btn:hover {
+    background: #d89a2b;
+    color: white;
+}
+
+.p-info {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.p-info li {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.p-info li:hover {
+    border-bottom: 2px solid #e7ab3c;
+}
+
+/* Size and Color Selection */
+.btn-group .btn {
+    margin: 0 5px;
+    border: 1px solid #ddd;
+}
+
+.btn-group .btn.active {
+    background-color: #e7ab3c;
+    color: white;
+    border-color: #e7ab3c;
+}
+
+.size-selection, .color-selection {
+    margin-bottom: 20px;
+}
+
+.size-selection strong, .color-selection strong {
+    margin-right: 10px;
+}

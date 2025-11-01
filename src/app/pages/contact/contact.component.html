@@ -1,0 +1,180 @@
+<!-- Page Add Section Begin -->
+<section class="page-add">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="page-breadcrumb">
+                    <h2>Contact us<span>.</span></h2>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <img src="assets/img/add.jpg" alt="Contact Promotion">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page Add Section End -->
+
+<!-- Contact Section Begin -->
+<div class="contact-section">
+    <div class="container">
+        <div class="row">
+            <!-- Contact Form -->
+            <div class="col-lg-8">
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input 
+                                type="text" 
+                                formControlName="firstName"
+                                placeholder="First Name"
+                                [class.error]="firstName?.invalid && firstName?.touched">
+                            <div *ngIf="firstName?.invalid && firstName?.touched" class="error-message">
+                                <span *ngIf="firstName?.errors?.['required']">First name is required</span>
+                                <span *ngIf="firstName?.errors?.['minlength']">First name must be at least 2 characters</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <input 
+                                type="text" 
+                                formControlName="lastName"
+                                placeholder="Last Name"
+                                [class.error]="lastName?.invalid && lastName?.touched">
+                            <div *ngIf="lastName?.invalid && lastName?.touched" class="error-message">
+                                <span *ngIf="lastName?.errors?.['required']">Last name is required</span>
+                                <span *ngIf="lastName?.errors?.['minlength']">Last name must be at least 2 characters</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <input 
+                                type="email" 
+                                formControlName="email"
+                                placeholder="E-mail"
+                                [class.error]="email?.invalid && email?.touched">
+                            <div *ngIf="email?.invalid && email?.touched" class="error-message">
+                                <span *ngIf="email?.errors?.['required']">Email is required</span>
+                                <span *ngIf="email?.errors?.['email']">Please enter a valid email</span>
+                            </div>
+                            
+                            <input 
+                                type="text" 
+                                formControlName="subject"
+                                placeholder="Subject"
+                                [class.error]="subject?.invalid && subject?.touched">
+                            <div *ngIf="subject?.invalid && subject?.touched" class="error-message">
+                                <span *ngIf="subject?.errors?.['required']">Subject is required</span>
+                                <span *ngIf="subject?.errors?.['minlength']">Subject must be at least 5 characters</span>
+                            </div>
+                            
+                            <textarea 
+                                formControlName="message"
+                                placeholder="Message"
+                                rows="6"
+                                [class.error]="message?.invalid && message?.touched"></textarea>
+                            <div *ngIf="message?.invalid && message?.touched" class="error-message">
+                                <span *ngIf="message?.errors?.['required']">Message is required</span>
+                                <span *ngIf="message?.errors?.['minlength']">Message must be at least 10 characters</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 text-right">
+                            <!-- Message de succès -->
+                            <div *ngIf="isSubmitted" class="success-message">
+                                <i class="fa fa-check-circle"></i>
+                                Thank you! Your message has been sent successfully.
+                            </div>
+                            
+                            <button 
+                                type="submit" 
+                                class="primary-btn"
+                                [disabled]="contactForm.invalid || isLoading">
+                                <span *ngIf="!isLoading">Send message</span>
+                                <span *ngIf="isLoading">
+                                    <i class="fa fa-spinner fa-spin"></i> Sending...
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="col-lg-3 offset-lg-1">
+                <div class="contact-widget">
+                    <div class="cw-item">
+                        <h5>
+                            <i class="fa fa-map-marker"></i>
+                            Location
+                        </h5>
+                        <ul>
+                            <li>{{ contactInfo.location.line1 }}</li>
+                            <li>{{ contactInfo.location.line2 }}</li>
+                        </ul>
+                    </div>
+                    <div class="cw-item">
+                        <h5>
+                            <i class="fa fa-phone"></i>
+                            Phone
+                        </h5>
+                        <ul>
+                            <li *ngFor="let phone of contactInfo.phone">
+                                <a [href]="'tel:' + phone" (click)="onPhoneClick(phone)">
+                                    {{ phone }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cw-item">
+                        <h5>
+                            <i class="fa fa-envelope"></i>
+                            E-mail
+                        </h5>
+                        <ul>
+                            <li>
+                                <a [href]="'mailto:' + contactInfo.email[0]" (click)="onEmailClick(contactInfo.email[0])">
+                                    {{ contactInfo.email[0] }}
+                                </a>
+                            </li>
+                            <li>
+                                <a [href]="'https://' + contactInfo.email[1]" 
+                                   target="_blank"
+                                   (click)="onWebsiteClick(contactInfo.email[1])">
+                                    {{ contactInfo.email[1] }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Horaires d'ouverture -->
+                    <div class="cw-item">
+                        <h5>
+                            <i class="fa fa-clock-o"></i>
+                            Business Hours
+                        </h5>
+                        <ul>
+                            <li>Monday - Friday: 9AM - 6PM</li>
+                            <li>Saturday: 10AM - 4PM</li>
+                            <li>Sunday: Closed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Map -->
+        <div class="map">
+            <div class="row">
+                <div class="col-lg-12">
+                    <iframe
+                        [src]="mapUrl | safeUrl"
+                        height="560"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Section End -->

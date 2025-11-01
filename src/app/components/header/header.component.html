@@ -1,90 +1,91 @@
-<header class="header">
-  <div class="header-container">
-    <!-- Logo -->
-    <div class="logo">
-      <a routerLink="/" (click)="closeMobileMenu()">
-        <h1>🛒 E-Shop</h1>
-      </a>
+<!-- Page Preloder -->
+<div id="preloder" *ngIf="false">
+    <div class="loader"></div>
+</div>
+
+<!-- Search model -->
+<div class="search-model" [class.show]="isSearchOpen">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch" (click)="toggleSearch()">+</div>
+        <form class="search-model-form" (submit)="onSearch($event)">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
     </div>
+</div>
+<!-- Search model end -->
 
-    <!-- Search Bar Desktop -->
-    <div class="search-bar-desktop">
-      <app-search-bar
-        (search)="onSearch($event)"
-        (suggestionSelected)="onSuggestionSelected($event)"
-      ></app-search-bar>
+<!-- Header Section Begin -->
+<header class="header-section">
+    <div class="container-fluid">
+        <div class="inner-header">
+            <div class="logo">
+                <a routerLink="/"><img src="assets/img/logo.png" alt="Violet Store"></a>
+            </div>
+            <div class="header-right">
+                <img src="assets/img/icons/search.png" alt="Search" class="search-trigger" (click)="toggleSearch()">
+                <img src="assets/img/icons/man.png" alt="Profile" routerLink="/login">
+                <a routerLink="/shopping-cart">
+                    <img src="assets/img/icons/bag.png" alt="Cart">
+                    <span>{{ cartItems }}</span>
+                </a>
+            </div>
+            <div class="user-access">
+                <a routerLink="/register">Register</a>
+                <a routerLink="/login" class="in">Sign in</a>
+            </div>
+            <nav class="main-menu mobile-menu">
+                <ul>
+                    <li>
+                        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+                    </li>
+                    <li>
+                        <a routerLink="/categories" routerLinkActive="active">Shop</a>
+                        <ul class="sub-menu">
+                            <li><a routerLink="/product-page">Product Page</a></li>
+                            <li><a routerLink="/shopping-cart">Shopping Cart</a></li>
+                            <li><a routerLink="/check-out">Check out</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <!-- About pointe vers Product Page -->
+                        <a routerLink="/product-page" routerLinkActive="active">About</a>
+                    </li>
+                    <li>
+                        <!-- Blog pointe vers Check-out -->
+                        <a routerLink="/check-out" routerLinkActive="active">Blog</a>
+                    </li>
+                    <li>
+                        <a routerLink="/contact" routerLinkActive="active">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-
-    <!-- Navigation Desktop -->
-    <nav class="nav-desktop">
-      <ul class="nav-list">
-        <li *ngFor="let item of navigationItems" class="nav-item">
-          <a 
-            [routerLink]="item.path" 
-            class="nav-link"
-            [class.cart-link]="item.label === 'Panier'"
-          >
-            <span class="nav-icon">{{ item.icon }}</span>
-            {{ item.label }}
-            <span *ngIf="item.label === 'Panier' && cartItemCount > 0" class="cart-badge">
-              {{ cartItemCount }}
-            </span>
-          </a>
-        </li>
-        <!-- Theme Toggle -->
-        <li class="nav-item">
-          <app-theme-toggle></app-theme-toggle>
-        </li>
-      </ul>
-    </nav>
-
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" [class.active]="isMobileMenuOpen">
-    <!-- Search Bar Mobile -->
-    <div class="search-bar-mobile">
-      <app-search-bar
-        (search)="onSearch($event); closeMobileMenu()"
-        (suggestionSelected)="onSuggestionSelected($event); closeMobileMenu()"
-      ></app-search-bar>
-    </div>
-
-    <nav class="nav-mobile">
-      <ul class="nav-list-mobile">
-        <li *ngFor="let item of navigationItems" class="nav-item-mobile">
-          <a 
-            [routerLink]="item.path" 
-            class="nav-link-mobile"
-            (click)="closeMobileMenu()"
-          >
-            <span class="nav-icon">{{ item.icon }}</span>
-            {{ item.label }}
-            <span *ngIf="item.label === 'Panier' && cartItemCount > 0" class="cart-badge-mobile">
-              {{ cartItemCount }}
-            </span>
-          </a>
-        </li>
-        <!-- Theme Toggle Mobile -->
-        <li class="nav-item-mobile">
-          <div class="theme-toggle-mobile">
-            <app-theme-toggle></app-theme-toggle>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
-  <!-- Overlay -->
-  <div 
-    class="mobile-overlay" 
-    [class.active]="isMobileMenuOpen"
-    (click)="closeMobileMenu()"
-  ></div>
 </header>
+
+<!-- Header Info Begin -->
+<div class="header-info">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="header-item">
+                    <img src="assets/img/icons/delivery.png" alt="Free shipping">
+                    <p>Free shipping on orders over $30 in USA</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-left text-lg-center">
+                <div class="header-item">
+                    <img src="assets/img/icons/voucher.png" alt="Student Discount">
+                    <p>20% Student Discount</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-left text-xl-right">
+                <div class="header-item">
+                    <img src="assets/img/icons/sales.png" alt="Sale">
+                    <p>30% off on dresses. Use code: 30OFF</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header Info End -->

@@ -1,0 +1,184 @@
+<!-- Page Add Section Begin -->
+<section class="page-add cart-page-add">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="page-breadcrumb">
+                    <h2>Cart<span>.</span></h2>
+                    <a routerLink="/">Home</a>
+                    <a routerLink="/categories">Dresses</a>
+                    <a class="active" href="#">Night Dresses</a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <img src="assets/img/add.jpg" alt="Cart Promotion">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page Add Section End -->
+
+<!-- Cart Page Section Begin -->
+<div class="cart-page">
+    <div class="container">
+        <!-- Cart Table -->
+        <div class="cart-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="product-h">Product</th>
+                        <th>Price</th>
+                        <th class="quan">Quantity</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of cartItems">
+                        <td class="product-col">
+                            <img [src]="item.image" [alt]="item.name">
+                            <div class="p-title">
+                                <h5>{{ item.name }}</h5>
+                                <div class="product-details">
+                                    <small>Size: {{ item.size }}</small>
+                                    <small>Color: {{ item.color }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="price-col">${{ item.price.toFixed(2) }}</td>
+                        <td class="quantity-col">
+                            <div class="pro-qty">
+                                <button (click)="decreaseQuantity(item)" class="qty-btn">-</button>
+                                <input type="text" [value]="item.quantity" readonly>
+                                <button (click)="increaseQuantity(item)" class="qty-btn">+</button>
+                            </div>
+                        </td>
+                        <td class="total">${{ getItemTotal(item).toFixed(2) }}</td>
+                        <td class="product-close">
+                            <button (click)="removeItem(item.id)" class="remove-btn">×</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="cartItems.length === 0">
+                        <td colspan="5" class="text-center empty-cart">
+                            <p>Your cart is empty</p>
+                            <a routerLink="/categories" class="primary-btn">Continue Shopping</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Cart Buttons -->
+        <div class="cart-btn" *ngIf="cartItems.length > 0">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="coupon-input">
+                        <form [formGroup]="cartForm" (ngSubmit)="applyCoupon()">
+                            <input 
+                                type="text" 
+                                formControlName="couponCode"
+                                placeholder="Enter coupon code">
+                            <button type="submit" class="coupon-btn">Apply</button>
+                        </form>
+                        <div *ngIf="couponCode" class="applied-coupon">
+                            Coupon "{{ couponCode }}" applied!
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-1 text-left text-lg-right">
+                    <button class="site-btn clear-btn" (click)="clearCart()">Clear Cart</button>
+                    <button class="site-btn update-btn" (click)="updateCart()">Update Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shipping Method and Total Info -->
+    <div class="shopping-method" *ngIf="cartItems.length > 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Shipping Information -->
+                    <div class="shipping-info">
+                        <h5>Choose a shipping</h5>
+                        <div class="chose-shipping">
+                            <div class="cs-item" *ngFor="let option of shippingOptions">
+                                <input 
+                                    type="radio" 
+                                    [id]="option.id" 
+                                    name="shipping" 
+                                    [checked]="option.selected"
+                                    (change)="selectShipping(option.id)">
+                                <label 
+                                    [for]="option.id" 
+                                    [class.active]="option.selected">
+                                    {{ option.name }}
+                                    <span *ngIf="option.description">{{ option.description }}</span>
+                                    <span *ngIf="option.price > 0" class="shipping-price">
+                                        +${{ option.price.toFixed(2) }}
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Information -->
+                    <div class="total-info">
+                        <div class="total-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Subtotal</th>
+                                        <th>Shipping</th>
+                                        <th class="total-cart">Total Cart</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="sub-total">${{ subtotal.toFixed(2) }}</td>
+                                        <td class="shipping" [class.free]="shippingCost === 0">
+                                            {{ shippingCost === 0 ? 'FREE' : '$' + shippingCost.toFixed(2) }}
+                                        </td>
+                                        <td class="total-cart-p">${{ total.toFixed(2) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 text-right">
+                                <a 
+                                    routerLink="/categories" 
+                                    class="primary-btn continue-btn">
+                                    Continue Shopping
+                                </a>
+                                <a 
+                                    href="#" 
+                                    class="primary-btn chechout-btn"
+                                    (click)="proceedToCheckout(); $event.preventDefault()">
+                                    Proceed to checkout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty Cart Message -->
+    <div class="empty-cart-message" *ngIf="cartItems.length === 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="empty-cart-content">
+                        <i class="fa fa-shopping-cart"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Looks like you haven't added any items to your cart yet.</p>
+                        <a routerLink="/categories" class="primary-btn">Start Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cart Page Section End -->

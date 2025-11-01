@@ -1,20 +1,22 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { ProductListComponent } from './pages/product-list/product-list.component';
-import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
-import { CartComponent } from './components/cart/cart.component';
-import { CheckoutComponent } from './pages/checkout/checkout.component';
-import { OrderConfirmationComponent } from './pages/order-confirmation/order-confirmation.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { CheckOutComponent } from './pages/check-out/check-out.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { RegisterComponent } from './pages/register/register.component'; // Doit exister
+import { LoginComponent } from './pages/login/login.component';         // Doit exister
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'products', component: ProductListComponent },
-  { path: 'product/:id', component: ProductDetailComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'checkout', component: CheckoutComponent },
-  { path: 'order-confirmation', component: OrderConfirmationComponent },
-  { path: 'profile', component: UserProfileComponent },
+  { path: 'categories', component: CategoriesComponent },
+  { path: 'product-page', component: ProductPageComponent },
+  { path: 'product-page/:id', component: ProductPageComponent },
+  { path: 'shopping-cart', component: ShoppingCartComponent },
+  { path: 'check-out', component: CheckOutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'register', component: RegisterComponent }, // Vos composants existants
+  { path: 'login', component: LoginComponent },       // Vos composants existants
   { path: '**', redirectTo: '' }
 ];

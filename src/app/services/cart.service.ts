@@ -1,156 +1,97 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { CartItem, Product } from '../models/product';
 
-export interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-  inStock: boolean;
-}
-
-export interface Cart {
-  items: CartItem[];
-  subtotal: number;
-  shipping: number;
-  total: number;
-  itemCount: number;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private cartItems: CartItem[] = [];
-  private cartSubject = new BehaviorSubject<Cart>(this.getCartSummary());
-  private isBrowser: boolean;
-  
-  cart$: Observable<Cart> = this.cartSubject.asObservable();
+  private storageKey = 'violet_cart';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-    
-    // Charger le panier depuis le localStorage au démarrage seulement si on est dans le navigateur
-    if (this.isBrowser) {
-      this.loadCartFromStorage();
-    }
+  constructor() {
+    this.loadCartFromStorage();
   }
 
-  // Ajouter un produit au panier
-  addToCart(product: any, quantity: number = 1): void {
-    const existingItem = this.cartItems.find(item => item.id === product.id);
-    
+  addToCart(product: Product, quantity: number = 1, size?: string, color?: string): void {
+    const existingItem = this.cartItems.find(item =>
+      item.product.id === product.id &&
+      item.selectedSize === size &&
+      item.selectedColor === color
+    );
+
     if (existingItem) {
       existingItem.quantity += quantity;
     } else {
       this.cartItems.push({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-        quantity: quantity,
-        inStock: product.inStock !== false
+        product,
+        quantity,
+        selectedSize: size,
+        selectedColor: color
       });
     }
-    
-    this.updateCart();
+
+    this.saveCartToStorage();
   }
 
-  // Supprimer un article du panier
-  removeFromCart(productId: number): void {
-    this.cartItems = this.cartItems.filter(item => item.id !== productId);
-    this.updateCart();
+  removeFromCart(itemId: number): void {
+    this.cartItems = this.cartItems.filter(item => item.product.id !== itemId);
+    this.saveCartToStorage();
   }
 
-  // Mettre à jour la quantité d'un article
-  updateQuantity(productId: number, quantity: number): void {
-    const item = this.cartItems.find(item => item.id === productId);
+  updateQuantity(itemId: number, quantity: number): void {
+    const item = this.cartItems.find(item => item.product.id === itemId);
     if (item) {
-      if (quantity <= 0) {
-        this.removeFromCart(productId);
-      } else {
-        item.quantity = quantity;
-        this.updateCart();
-      }
-    }
-  }
-
-  // Vider le panier
-  clearCart(): void {
-    this.cartItems = [];
-    this.updateCart();
-  }
-
-  // Obtenir le nombre total d'articles
-  getItemCount(): number {
-    return this.cartItems.reduce((total, item) => total + item.quantity, 0);
-  }
-
-  // Obtenir le résumé du panier
-  private getCartSummary(): Cart {
-    const subtotal = this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-    const shipping = subtotal > 50 ? 0 : 4.99;
-    const total = subtotal + shipping;
-    const itemCount = this.getItemCount();
-
-    return {
-      items: [...this.cartItems],
-      subtotal,
-      shipping,
-      total,
-      itemCount
-    };
-  }
-
-  // Mettre à jour le panier et notifier les observateurs
-  private updateCart(): void {
-    const cartSummary = this.getCartSummary();
-    this.cartSubject.next(cartSummary);
-    
-    // Sauvegarder seulement si on est dans le navigateur
-    if (this.isBrowser) {
+      item.quantity = quantity;
       this.saveCartToStorage();
     }
   }
 
-  // Sauvegarder le panier dans le localStorage
+  getCartItems(): CartItem[] {
+    return this.cartItems;
+  }
+
+  getCartTotal(): number {
+    return this.cartItems.reduce((total, item) =>
+      total + (item.product.price * item.quantity), 0
+    );
+  }
+
+  getCartItemsCount(): number {
+    return this.cartItems.reduce((total, item) => total + item.quantity, 0);
+  }
+
   private saveCartToStorage(): void {
-    if (this.isBrowser) {
-      localStorage.setItem('eshop_cart', JSON.stringify(this.cartItems));
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.cartItems));
     }
   }
 
-  // Charger le panier depuis le localStorage
   private loadCartFromStorage(): void {
-    if (!this.isBrowser) return;
-
-    const savedCart = localStorage.getItem('eshop_cart');
-    if (savedCart) {
-      try {
-        this.cartItems = JSON.parse(savedCart);
-        this.updateCart();
-      } catch (error) {
-        console.error('Erreur lors du chargement du panier:', error);
-        this.cartItems = [];
+    if (typeof localStorage !== 'undefined') {
+      const storedCart = localStorage.getItem(this.storageKey);
+      if (storedCart) {
+        this.cartItems = JSON.parse(storedCart);
       }
     }
   }
 
-  // Obtenir les articles du panier (pour compatibilité)
-  getCartItems(): CartItem[] {
-    return [...this.cartItems];
+  getOrderSummary() {
+    const items = this.getCartItems();
+    const subtotal = this.getCartTotal();
+    const shipping = subtotal > 30 ? 0 : 10; // Free shipping over $30
+    const total = subtotal + shipping;
+
+    return {
+      items,
+      subtotal,
+      shipping,
+      total
+    };
   }
 
-  // Vérifier si un produit est dans le panier
-  isInCart(productId: number): boolean {
-    return this.cartItems.some(item => item.id === productId);
-  }
-
-  // Obtenir la quantité d'un produit dans le panier
-  getProductQuantity(productId: number): number {
-    const item = this.cartItems.find(item => item.id === productId);
-    return item ? item.quantity : 0;
+  clearCart() {
+    this.cartItems = [];
+    this.saveCartToStorage();
   }
 }

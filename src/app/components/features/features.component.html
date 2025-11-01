@@ -1,0 +1,49 @@
+<!-- Features Section Begin -->
+<section class="features-section spad">
+    <div class="features-ads">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4" *ngFor="let feature of features">
+                    <div class="single-features-ads {{ feature.class }}">
+                        <img [src]="feature.icon" [alt]="feature.title">
+                        <h4>{{ feature.title }}</h4>
+                        <p>{{ feature.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Features Box -->
+    <div class="features-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12" *ngFor="let box of featureBoxes.slice(0, 2)">
+                            <div class="single-box-item {{ box.class }}">
+                                <img [src]="box.image" [alt]="box.title">
+                                <div class="box-text">
+                                    <span class="trend-year">{{ box.year }}</span>
+                                    <h2>{{ box.title }}</h2>
+                                    <span class="trend-alert">{{ box.alert }}</span>
+                                    <a *ngIf="box.button" routerLink="/categories" class="primary-btn">See More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="single-box-item large-box" *ngFor="let box of featureBoxes.slice(2)">
+                        <img [src]="box.image" [alt]="box.title">
+                        <div class="box-text">
+                            <span class="trend-year">{{ box.year }}</span>
+                            <h2>{{ box.title }}</h2>
+                            <div class="trend-alert">{{ box.alert }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Features Section End -->

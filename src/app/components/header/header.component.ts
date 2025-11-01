@@ -1,71 +1,70 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { CartService, Cart } from '../../services/cart.service';
-import { SearchService, SearchSuggestion } from '../../services/search.service';
-import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
-import { ThemeToggleComponent } from '../../components/theme-toggle/theme-toggle.component'; // ← Ajouter cette ligne
-import { Subscription } from 'rxjs';
+import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    CommonModule, 
-    RouterModule, 
-    SearchBarComponent,
-    ThemeToggleComponent // ← Ajouter cette ligne
-  ],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  cartItemCount = 0;
-  private cartSubscription: Subscription | undefined;
-  
-  navigationItems = [
-    { path: '/', label: 'Accueil', icon: '🏠' },
-    { path: '/products', label: 'Boutique', icon: '🛍️' },
-    { path: '/cart', label: 'Panier', icon: '🛒' },
-    { path: '/profile', label: 'Profil', icon: '👤' }
-  ];
-
+export class HeaderComponent implements OnInit, AfterViewInit {
+  cartItems = 2;
+  isSearchOpen = false;
   isMobileMenuOpen = false;
 
-  constructor(
-    private cartService: CartService,
-    private searchService: SearchService
-  ) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
-  ngOnInit(): void {
-    this.cartSubscription = this.cartService.cart$.subscribe((cart: Cart) => {
-      this.cartItemCount = cart.itemCount;
-    });
+  ngOnInit() {
+    // Initialisation si nécessaire
   }
 
-  ngOnDestroy(): void {
-    if (this.cartSubscription) {
-      this.cartSubscription.unsubscribe();
-    }
+  ngAfterViewInit() {
+    // Initialiser les fonctionnalités JavaScript après le rendu
+    this.initializeHeaderFunctionality();
   }
 
-  onSearch(query: string): void {
-    // Rediriger vers la page produits avec le terme de recherche
-    const searchParams = { search: query };
-    console.log('Recherche:', query);
-    // this.router.navigate(['/products'], { queryParams: searchParams });
+  toggleSearch() {
+    this.isSearchOpen = !this.isSearchOpen;
   }
 
-  onSuggestionSelected(suggestion: SearchSuggestion): void {
-    console.log('Suggestion sélectionnée:', suggestion);
-    // Implémenter la logique de navigation selon le type de suggestion
-  }
-
-  toggleMobileMenu(): void {
+  toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
-  closeMobileMenu(): void {
-    this.isMobileMenuOpen = false;
+  onSearch(event: Event) {
+    event.preventDefault();
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    if (searchInput && searchInput.value.trim()) {
+      console.log('Searching for:', searchInput.value);
+      // Implémenter la logique de recherche ici
+      this.isSearchOpen = false;
+      searchInput.value = '';
+    }
+  }
+
+  private initializeHeaderFunctionality() {
+    // Vérifier si on est côté client (browser)
+    if (isPlatformBrowser(this.platformId)) {
+      // Search functionality
+      const searchTrigger = document.querySelector('.search-trigger');
+      const searchClose = document.querySelector('.search-close-switch');
+      const searchModel = document.querySelector('.search-model');
+
+      if (searchTrigger && searchClose && searchModel) {
+        searchTrigger.addEventListener('click', () => {
+          this.isSearchOpen = true;
+        });
+
+        searchClose.addEventListener('click', () => {
+          this.isSearchOpen = false;
+        });
+      }
+
+      // Mobile menu functionality
+      const mobileMenu = document.querySelector('.mobile-menu');
+      // Initialiser le menu mobile si nécessaire
+    }
   }
 }

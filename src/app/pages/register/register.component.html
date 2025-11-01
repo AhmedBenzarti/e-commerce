@@ -1,0 +1,156 @@
+<!-- Page Add Section Begin -->
+<section class="page-add">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="page-breadcrumb">
+                    <h2>Register<span>.</span></h2>
+                    <a routerLink="/">Home</a>
+                    <a class="active" href="#">Register</a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <img src="assets/img/add.jpg" alt="Register Promotion">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page Add Section End -->
+
+<!-- Register Section Begin -->
+<section class="register-section spad">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="register-form">
+                    <h3>Create Your Account</h3>
+                    <p>Join our community and start shopping today!</p>
+                    
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input 
+                                        type="text" 
+                                        id="firstName"
+                                        formControlName="firstName"
+                                        placeholder="Enter your first name"
+                                        [class.error]="firstName?.invalid && firstName?.touched">
+                                    <div *ngIf="firstName?.invalid && firstName?.touched" class="error-message">
+                                        <span *ngIf="firstName?.errors?.['required']">First name is required</span>
+                                        <span *ngIf="firstName?.errors?.['minlength']">First name must be at least 2 characters</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input 
+                                        type="text" 
+                                        id="lastName"
+                                        formControlName="lastName"
+                                        placeholder="Enter your last name"
+                                        [class.error]="lastName?.invalid && lastName?.touched">
+                                    <div *ngIf="lastName?.invalid && lastName?.touched" class="error-message">
+                                        <span *ngIf="lastName?.errors?.['required']">Last name is required</span>
+                                        <span *ngIf="lastName?.errors?.['minlength']">Last name must be at least 2 characters</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input 
+                                type="email" 
+                                id="email"
+                                formControlName="email"
+                                placeholder="Enter your email address"
+                                [class.error]="email?.invalid && email?.touched">
+                            <div *ngIf="email?.invalid && email?.touched" class="error-message">
+                                <span *ngIf="email?.errors?.['required']">Email is required</span>
+                                <span *ngIf="email?.errors?.['email']">Please enter a valid email address</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                            <input 
+                                type="password" 
+                                id="password"
+                                formControlName="password"
+                                placeholder="Create a password"
+                                [class.error]="password?.invalid && password?.touched">
+                            <div *ngIf="password?.invalid && password?.touched" class="error-message">
+                                <span *ngIf="password?.errors?.['required']">Password is required</span>
+                                <span *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters</span>
+                                <span *ngIf="password?.errors?.['passwordStrength']">
+                                    Password must contain uppercase, lowercase, number, and special character
+                                </span>
+                            </div>
+                            <div *ngIf="password?.valid" class="success-message">
+                                ✓ Password strength is good
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password *</label>
+                            <input 
+                                type="password" 
+                                id="confirmPassword"
+                                formControlName="confirmPassword"
+                                placeholder="Confirm your password"
+                                [class.error]="confirmPassword?.invalid && confirmPassword?.touched">
+                            <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="error-message">
+                                <span *ngIf="confirmPassword?.errors?.['required']">Please confirm your password</span>
+                                <span *ngIf="registerForm?.errors?.['passwordMismatch'] && confirmPassword?.touched">
+                                    Passwords do not match
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group terms-group">
+                            <div class="checkbox">
+                                <input 
+                                    type="checkbox" 
+                                    id="acceptTerms"
+                                    formControlName="acceptTerms">
+                                <label for="acceptTerms">
+                                    I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a> *
+                                </label>
+                            </div>
+                            <div *ngIf="acceptTerms?.invalid && acceptTerms?.touched" class="error-message">
+                                You must accept the terms and conditions
+                            </div>
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            class="primary-btn submit-btn"
+                            [disabled]="registerForm.invalid || isSubmitting">
+                            <span *ngIf="!isSubmitting">Create Account</span>
+                            <span *ngIf="isSubmitting">Creating Account...</span>
+                        </button>
+
+                        <div class="login-redirect">
+                            <p>Already have an account? <a routerLink="/login" class="login-link">Sign in here</a></p>
+                        </div>
+                    </form>
+
+                    <div class="register-benefits">
+                        <h5>Benefits of registering:</h5>
+                        <ul>
+                            <li>✓ Faster checkout process</li>
+                            <li>✓ Order tracking and history</li>
+                            <li>✓ Wishlist functionality</li>
+                            <li>✓ Exclusive member discounts</li>
+                            <li>✓ Personalized recommendations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Register Section End -->
