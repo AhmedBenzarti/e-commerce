@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -13,15 +14,25 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   cartItems = 2;
   isSearchOpen = false;
   isMobileMenuOpen = false;
+  isDarkTheme = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
+    private themeService: ThemeService
+  ) {}
 
   ngOnInit() {
-    // Initialisation si nécessaire
+    this.isDarkTheme = this.themeService.isDarkTheme();
+    
+    // Vérification immédiate
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => {
+        const hasClass = document.body.classList.contains('dark-theme');
+      }, 100);
+    }
   }
 
   ngAfterViewInit() {
-    // Initialiser les fonctionnalités JavaScript après le rendu
     this.initializeHeaderFunctionality();
   }
 
@@ -33,26 +44,35 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
+  toggleTheme() {
+    
+    this.themeService.toggleTheme();
+    this.isDarkTheme = this.themeService.isDarkTheme();
+    
+    
+    // Vérification visuelle
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => {
+        const hasClass = document.body.classList.contains('dark-theme');
+      }, 100);
+    }
+  }
+
   onSearch(event: Event) {
     event.preventDefault();
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
     if (searchInput && searchInput.value.trim()) {
-      console.log('Searching for:', searchInput.value);
-      // Implémenter la logique de recherche ici
       this.isSearchOpen = false;
       searchInput.value = '';
     }
   }
 
   private initializeHeaderFunctionality() {
-    // Vérifier si on est côté client (browser)
     if (isPlatformBrowser(this.platformId)) {
-      // Search functionality
       const searchTrigger = document.querySelector('.search-trigger');
       const searchClose = document.querySelector('.search-close-switch');
-      const searchModel = document.querySelector('.search-model');
 
-      if (searchTrigger && searchClose && searchModel) {
+      if (searchTrigger && searchClose) {
         searchTrigger.addEventListener('click', () => {
           this.isSearchOpen = true;
         });
@@ -61,10 +81,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           this.isSearchOpen = false;
         });
       }
-
-      // Mobile menu functionality
-      const mobileMenu = document.querySelector('.mobile-menu');
-      // Initialiser le menu mobile si nécessaire
     }
   }
 }
