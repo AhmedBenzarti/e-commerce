@@ -1,0 +1,358 @@
+/* ===== USER AVATAR - CONTOUR GOLD PARFAITEMENT CENTRÉ ===== */
+.user-avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+.avatar-trigger:hover {
+  background: #f7fafc;
+  border-color: #e7ab3c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(231, 171, 60, 0.15);
+}
+
+.avatar-wrapper {
+  position: relative;
+}
+
+.avatar-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+  filter: brightness(1);
+}
+
+.avatar-trigger:hover .avatar-image {
+  border-color: #e7ab3c;
+  transform: scale(1.05);
+}
+
+.user-name {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.avatar-trigger:hover .user-name {
+  color: #e7ab3c;
+}
+
+.dropdown-arrow {
+  font-size: 10px;
+  color: #718096;
+  transition: all 0.3s ease;
+}
+
+.dropdown-arrow.rotated {
+  transform: rotate(180deg);
+  color: #e7ab3c;
+}
+
+/* Menu déroulant */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  width: 280px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e2e8f0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* En-tête avec avatar amélioré */
+.user-profile-header {
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.user-profile-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Avatar large avec contour gold PARFAITEMENT CENTRÉ */
+.avatar-large-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar-large {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  filter: brightness(1);
+  transition: all 0.3s ease;
+  position: relative;
+  display: block;
+}
+
+/* CONTOUR GOLD PARFAITEMENT CENTRÉ - Solution avec box-shadow */
+.avatar-large-wrapper .user-avatar-large {
+  transition: all 0.3s ease;
+}
+
+.avatar-large-wrapper:hover .user-avatar-large {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 3px #e7ab3c; /* CONTOUR GOLD PARFAITEMENT CENTRÉ */
+}
+
+.user-details {
+  flex: 1;
+}
+
+.user-display-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 4px 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.user-status {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Petit indicateur vert à côté du statut */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #48bb78;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+/* Bouton en bas */
+.test-login-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.test-login-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.test-login-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Menu items */
+.menu-section {
+  padding: 8px 0;
+}
+
+.menu-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 20px 4px;
+  margin: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  color: #2d3748;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.menu-item:hover {
+  background: #f7fafc;
+  color: #e7ab3c;
+}
+
+.menu-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.menu-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 4px 0;
+}
+
+.account-section {
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* ===== MODE SOMBRE AVEC CONTOUR GOLD PARFAITEMENT CENTRÉ ===== */
+
+/* Correction des images en mode sombre */
+.avatar-trigger.dark-mode .avatar-image,
+.dropdown-menu.dark-mode .user-avatar-large {
+  filter: brightness(1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* CONTOUR GOLD UNIQUEMENT AU SURVOL EN MODE SOMBRE */
+.avatar-trigger.dark-mode {
+  background: var(--dark-surface, #1a1a1a) !important;
+  border: 1px solid var(--dark-border, #404040) !important;
+  transition: all 0.3s ease !important;
+}
+
+.avatar-trigger.dark-mode:hover {
+  background: var(--dark-elevated, #2d2d2d) !important;
+  border-color: #e7ab3c !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(231, 171, 60, 0.2) !important;
+}
+
+.avatar-trigger.dark-mode .user-name {
+  color: var(--dark-text, #f8f9fa) !important;
+  transition: color 0.3s ease !important;
+}
+
+.avatar-trigger.dark-mode:hover .user-name {
+  color: #e7ab3c !important;
+}
+
+.avatar-trigger.dark-mode:hover .avatar-image {
+  border-color: #e7ab3c !important;
+  transform: scale(1.05) !important;
+}
+
+/* CONTOUR GOLD SUR L'AVATAR LARGE EN MODE SOMBRE - PARFAITEMENT CENTRÉ */
+.dropdown-menu.dark-mode .avatar-large-wrapper:hover .user-avatar-large {
+  box-shadow: 0 0 0 3px #e7ab3c !important;
+  transform: scale(1.05) !important;
+}
+
+.dropdown-menu.dark-mode {
+  background: var(--dark-card, #242424) !important;
+  border: 1px solid var(--dark-border, #404040) !important;
+  box-shadow: var(--shadow-dark, 0 8px 32px rgba(0, 0, 0, 0.4)) !important;
+}
+
+/* En-tête en mode sombre */
+.dropdown-menu.dark-mode .user-profile-header {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
+}
+
+.dropdown-menu.dark-mode .menu-section-title {
+  color: var(--dark-text-muted, #e9ecef) !important;
+}
+
+.dropdown-menu.dark-mode .menu-item {
+  color: var(--dark-text, #f8f9fa) !important;
+}
+
+.dropdown-menu.dark-mode .menu-item:hover {
+  background: var(--dark-elevated, #2d2d2d) !important;
+  color: var(--gold-primary, #e7ab3c) !important;
+}
+
+.dropdown-menu.dark-mode .menu-divider {
+  background: var(--dark-border, #404040) !important;
+}
+
+.dropdown-menu.dark-mode .account-section {
+  background: var(--dark-surface, #1a1a1a) !important;
+  border-top: 1px solid var(--dark-border, #404040) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .user-name { display: none; }
+  .avatar-trigger { padding: 6px 12px; }
+  
+  .dropdown-menu {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: 90%;
+    max-width: 300px;
+    border-radius: 12px 12px 0 0;
+  }
+  
+  .dropdown-menu.show {
+    transform: translateX(-50%) translateY(0);
+  }
+}

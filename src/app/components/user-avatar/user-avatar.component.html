@@ -1,0 +1,85 @@
+<div class="user-avatar-container">
+  <div class="avatar-trigger" 
+       [class.dark-mode]="isDarkTheme"
+       (click)="toggleDropdown()">
+    <div class="avatar-wrapper">
+      <img 
+        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" 
+        alt="Avatar" 
+        class="avatar-image"
+        onerror="this.src='assets/img/icons/man.png'"
+      >
+    </div>
+    <span class="user-name">{{ isLoggedIn ? userName : 'Mon Compte' }}</span>
+    <span class="dropdown-arrow" [class.rotated]="isOpen">▼</span>
+  </div>
+
+  <div class="dropdown-menu" 
+       [class.show]="isOpen"
+       [class.dark-mode]="isDarkTheme">
+    
+    <div class="user-profile-header">
+      <div class="user-profile-content">
+        <!-- Avatar avec contour gold CORRECT -->
+        <div class="avatar-large-wrapper">
+          <img 
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" 
+            alt="Avatar" 
+            class="user-avatar-large"
+            onerror="this.src='assets/img/icons/man.png'"
+          >
+          <!-- INDICATEUR SUPPRIMÉ -->
+        </div>
+        
+        <div class="user-details">
+          <div class="user-display-name">{{ isLoggedIn ? userName : 'Bienvenue' }}</div>
+          <!-- Statut avec indicateur vert seulement -->
+          <div class="user-status">
+            <span class="status-dot" *ngIf="isLoggedIn"></span>
+            {{ isLoggedIn ? 'En ligne' : 'Hors ligne' }}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bouton en bas de l'en-tête -->
+      <div class="test-login-container" *ngIf="!isLoggedIn">
+        <button class="test-login-btn" (click)="simulateLogin($event)">
+          Se connecter
+        </button>
+      </div>
+    </div>
+
+    <div class="menu-section" *ngIf="isLoggedIn">
+      <div class="menu-section-title">Mon Compte</div>
+      <button class="menu-item" (click)="onProfile()">
+        <span class="menu-icon">👤</span>
+        <span>Profil</span>
+      </button>
+      <button class="menu-item" (click)="onSettings()">
+        <span class="menu-icon">⚙️</span>
+        <span>Paramètres</span>
+      </button>
+      <button class="menu-item" (click)="onHelp()">
+        <span class="menu-icon">❓</span>
+        <span>Aide</span>
+      </button>
+    </div>
+
+    <div class="menu-divider"></div>
+
+    <div class="menu-section account-section">
+      <button class="menu-item" (click)="onLogin()" *ngIf="!isLoggedIn">
+        <span class="menu-icon">🔑</span>
+        <span>Se connecter</span>
+      </button>
+      <button class="menu-item" (click)="onRegister()" *ngIf="!isLoggedIn">
+        <span class="menu-icon">📝</span>
+        <span>S'inscrire</span>
+      </button>
+      <button class="menu-item" (click)="onLogout()" *ngIf="isLoggedIn">
+        <span class="menu-icon">🚪</span>
+        <span>Déconnexion</span>
+      </button>
+    </div>
+  </div>
+</div>

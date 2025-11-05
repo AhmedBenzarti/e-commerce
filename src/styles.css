@@ -2609,4 +2609,80 @@ body.dark-theme * {
   .login-form h3 {
     font-size: 24px;
   }
+  /* === MODE SOMBRE AVEC CONTOUR GOLD PARFAITEMENT CENTRÉ === */
+
+body.dark-theme app-user-avatar .avatar-trigger {
+  background: var(--dark-surface, #1a1a1a) !important;
+  border: 1px solid var(--dark-border, #404040) !important;
+  transition: all 0.3s ease !important;
+}
+
+body.dark-theme app-user-avatar .avatar-trigger:hover {
+  background: var(--dark-elevated, #2d2d2d) !important;
+  border-color: #e7ab3c !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(231, 171, 60, 0.2) !important;
+}
+
+body.dark-theme app-user-avatar .avatar-trigger .user-name {
+  color: var(--dark-text, #f8f9fa) !important;
+  transition: color 0.3s ease !important;
+}
+
+body.dark-theme app-user-avatar .avatar-trigger:hover .user-name {
+  color: #e7ab3c !important;
+}
+
+/* Correction des images en mode sombre */
+body.dark-theme app-user-avatar .avatar-image,
+body.dark-theme app-user-avatar .user-avatar-large {
+  filter: brightness(1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+body.dark-theme app-user-avatar .avatar-trigger:hover .avatar-image {
+  border-color: #e7ab3c !important;
+  transform: scale(1.05) !important;
+}
+
+/* CONTOUR GOLD PARFAITEMENT CENTRÉ - Solution avec box-shadow */
+body.dark-theme app-user-avatar .avatar-large-wrapper:hover .user-avatar-large {
+  box-shadow: 0 0 0 3px #e7ab3c !important;
+  transform: scale(1.05) !important;
+}
+
+body.dark-theme app-user-avatar .dropdown-menu {
+  background: var(--dark-card, #242424) !important;
+  border: 1px solid var(--dark-border, #404040) !important;
+  box-shadow: var(--shadow-dark, 0 8px 32px rgba(0, 0, 0, 0.4)) !important;
+}
+
+/* En-tête avec nouvelle couleur en mode sombre */
+body.dark-theme app-user-avatar .user-profile-header {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
+}
+
+body.dark-theme app-user-avatar .dropdown-menu .menu-item {
+  color: var(--dark-text, #f8f9fa) !important;
+}
+
+body.dark-theme app-user-avatar .dropdown-menu .menu-item:hover {
+  background: var(--dark-elevated, #2d2d2d) !important;
+  color: var(--gold-primary, #e7ab3c) !important;
+}
+
+body.dark-theme app-user-avatar .dropdown-menu .menu-section-title {
+  color: var(--dark-text-muted, #e9ecef) !important;
+}
+
+body.dark-theme app-user-avatar .dropdown-menu .menu-divider {
+  background: var(--dark-border, #404040) !important;
+}
+
+body.dark-theme app-user-avatar .dropdown-menu .account-section {
+  background: var(--dark-surface, #1a1a1a) !important;
+  border-top: 1px solid var(--dark-border, #404040) !important;
+}
+  
 }

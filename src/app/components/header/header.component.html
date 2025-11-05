@@ -22,24 +22,27 @@
                 <a routerLink="/"><img src="assets/img/logo.png" alt="Violet Store"></a>
             </div>
             <div class="header-right">
-                <!-- BOUTON THÈME AJOUTÉ ICI -->
-                <button class="theme-toggle-btn" (click)="toggleTheme()" 
-                        [title]="isDarkTheme ? 'Passer en mode clair' : 'Passer en mode sombre'">
-                    <span *ngIf="!isDarkTheme">🌙</span>
-                    <span *ngIf="isDarkTheme">☀️</span>
-                </button>
-                
-                <img src="assets/img/icons/search.png" alt="Search" class="search-trigger" (click)="toggleSearch()">
-                <img src="assets/img/icons/man.png" alt="Profile" routerLink="/login">
-                <a routerLink="/shopping-cart">
-                    <img src="assets/img/icons/bag.png" alt="Cart">
-                    <span>{{ cartItems }}</span>
-                </a>
-            </div>
-            <div class="user-access">
-                <a routerLink="/register">Register</a>
-                <a routerLink="/login" class="in">Sign in</a>
-            </div>
+    <!-- BOUTON THÈME -->
+    <button class="theme-toggle-btn" (click)="toggleTheme()" 
+            [title]="isDarkTheme ? 'Passer en mode clair' : 'Passer en mode sombre'">
+        <span *ngIf="!isDarkTheme">🌙</span>
+        <span *ngIf="isDarkTheme">☀️</span>
+    </button>
+    
+    <!-- RECHERCHE -->
+    <img src="assets/img/icons/search.png" alt="Search" class="search-trigger" (click)="toggleSearch()">
+    
+    <!-- MENU AVATAR UTILISATEUR -->
+    <app-user-avatar></app-user-avatar>
+    
+    <!-- PANIER -->
+    <a routerLink="/shopping-cart" class="cart-link">
+        <img src="assets/img/icons/bag.png" alt="Cart">
+        <span>{{ cartItems }}</span>
+    </a>
+</div>
+            
+            <!-- NAVIGATION PRINCIPALE -->
             <nav class="main-menu mobile-menu">
                 <ul>
                     <li>
