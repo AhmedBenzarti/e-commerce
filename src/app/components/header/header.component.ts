@@ -31,6 +31,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         const hasClass = document.body.classList.contains('dark-theme');
+        console.log('Dark theme active:', hasClass);
+        console.log('Body classes:', document.body.classList);
       }, 100);
     }
   }

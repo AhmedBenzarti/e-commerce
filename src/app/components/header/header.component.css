@@ -11,17 +11,24 @@
     position: relative;
     display: flex;
     align-items: center;
-    background: white !important; /* Fond blanc avant clic */
+    background: white;
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s ease;
-    border: 1px solid #e0e0e0 !important; /* Bordure légère */
+    border: 1px solid #e0e0e0; /* Bordure grise par défaut */
 }
 
-.search-container:focus-within {
-    background: white !important; /* Fond blanc au focus aussi */
-    border-color: #4285f4 !important; /* Bordure bleue au focus */
-    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2) !important;
+/* Survol de l'icône de recherche */
+.search-icon:hover ~ .search-input,
+.search-icon:hover ~ .clear-search,
+.search-container:hover .search-icon:hover ~ .search-input,
+.search-container:hover .search-icon:hover ~ .clear-search {
+    /* Ces sélectors sont pour déclencher le style au survol de l'icône */
+}
+
+/* Alternative plus simple : survol du container quand la souris est sur l'icône */
+.search-container:hover {
+    border-color: #D4AF37; /* Bordure or au survol */
 }
 
 .search-icon {
@@ -29,10 +36,16 @@
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: #65676b !important;
+    color: #65676b;
     display: flex;
     align-items: center;
-    pointer-events: none;
+    pointer-events: none; /* Enlève cette ligne pour que l'icône soit cliquable */
+    cursor: pointer; /* Ajoute un curseur pointer */
+}
+
+/* Style quand la souris est sur l'icône */
+.search-icon:hover {
+    color: #D4AF37; /* Change la couleur de l'icône en or */
 }
 
 .search-input {
@@ -41,13 +54,13 @@
     border: none;
     outline: none;
     font-size: 14px;
-    background: transparent !important;
-    color: #1c1e21 !important; /* Texte en noir */
+    background: transparent;
+    color: #1c1e21;
     font-family: inherit;
 }
 
 .search-input::placeholder {
-    color: #65676b !important; /* Placeholder gris */
+    color: #65676b;
 }
 
 .clear-search {
@@ -55,32 +68,59 @@
     right: 8px;
     top: 50%;
     transform: translateY(-50%);
-    background: #f0f2f5 !important; /* Fond gris clair pour le bouton */
+    background: #f0f2f5;
     border: none;
     border-radius: 50%;
     width: 18px;
     height: 18px;
     cursor: pointer;
-    color: #4b4c4f !important;
+    color: #4b4c4f;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
     font-size: 10px;
+    transition: all 0.2s ease;
 }
 
 .clear-search:hover {
-    background: #e4e6e9 !important; /* Gris un peu plus foncé au hover */
+    background: #e4e6e9;
 }
 
-/* SUPPRIMER TOUS LES STYLES MODE SOMBRE POUR LA RECHERCHE */
-.dark-theme .search-container,
-.dark-theme .search-container:focus-within,
-.dark-theme .search-input,
-.dark-theme .search-input::placeholder,
-.dark-theme .search-icon,
-.dark-theme .clear-search {
-    /* On laisse vide pour que les styles normaux s'appliquent */
+/* MODE SOMBRE via la classe dark-mode */
+.header-search.dark-mode .search-container {
+    background: #1c1e21;
+    border-color: #5a5b5c; /* Bordure gris foncé par défaut */
+}
+
+/* Survol en mode sombre */
+.header-search.dark-mode .search-container:hover {
+    border-color: #D4AF37; /* Bordure or au survol */
+}
+
+.header-search.dark-mode .search-icon:hover {
+    color: #D4AF37; /* Icône en or au survol */
+}
+
+.header-search.dark-mode .search-input {
+    color: #ffffff;
+}
+
+.header-search.dark-mode .search-input::placeholder {
+    color: #b0b3b8;
+}
+
+.header-search.dark-mode .search-icon {
+    color: #b0b3b8;
+}
+
+.header-search.dark-mode .clear-search {
+    background: #3a3b3c;
+    color: #b0b3b8;
+}
+
+.header-search.dark-mode .clear-search:hover {
+    background: #4e4f50;
 }
 
 /* Responsive */
