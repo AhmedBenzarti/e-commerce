@@ -21,26 +21,51 @@
             <div class="logo">
                 <a routerLink="/"><img src="assets/img/logo.png" alt="Violet Store"></a>
             </div>
+            
             <div class="header-right">
-    <!-- BOUTON THÈME -->
-    <button class="theme-toggle-btn" (click)="toggleTheme()" 
-            [title]="isDarkTheme ? 'Passer en mode clair' : 'Passer en mode sombre'">
-        <span *ngIf="!isDarkTheme">🌙</span>
-        <span *ngIf="isDarkTheme">☀️</span>
-    </button>
-    
-    <!-- RECHERCHE -->
-    <img src="assets/img/icons/search.png" alt="Search" class="search-trigger" (click)="toggleSearch()">
-    
-    <!-- MENU AVATAR UTILISATEUR -->
-    <app-user-avatar></app-user-avatar>
-    
-    <!-- PANIER -->
-    <a routerLink="/shopping-cart" class="cart-link">
-        <img src="assets/img/icons/bag.png" alt="Cart">
-        <span>{{ cartItems }}</span>
-    </a>
-</div>
+                <!-- BOUTON THÈME -->
+                <button class="theme-toggle-btn" (click)="toggleTheme()" 
+                        [title]="isDarkTheme ? 'Passer en mode clair' : 'Passer en mode sombre'">
+                    <span *ngIf="!isDarkTheme">🌙</span>
+                    <span *ngIf="isDarkTheme">☀️</span>
+                </button>
+                
+                <!-- BARRE DE RECHERCHE DANS HEADER-RIGHT -->
+                <div class="header-search">
+                    <form class="search-form" (submit)="onSearch($event)">
+                        <div class="search-container">
+                            <div class="search-icon">
+                                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M3.04175 9.37363C3.04175 5.87693 5.87711 3.04199 9.37508 3.04199C12.8731 3.04199 15.7084 5.87693 15.7084 9.37363C15.7084 12.8703 12.8731 15.7053 9.37508 15.7053C5.87711 15.7053 3.04175 12.8703 3.04175 9.37363ZM9.37508 1.54199C5.04902 1.54199 1.54175 5.04817 1.54175 9.37363C1.54175 13.6991 5.04902 17.2053 9.37508 17.2053C11.2674 17.2053 13.003 16.5344 14.357 15.4176L17.177 18.238C17.4699 18.5309 17.9448 18.5309 18.2377 18.238C18.5306 17.9451 18.5306 17.4703 18.2377 17.1774L15.418 14.3573C16.5365 13.0033 17.2084 11.2669 17.2084 9.37363C17.2084 5.04817 13.7011 1.54199 9.37508 1.54199Z"
+                                        fill="currentColor" />
+                                </svg>
+                            </div>
+                            <input 
+                                type="text" 
+                                placeholder="Rechercher..." 
+                                [(ngModel)]="searchQuery"
+                                name="search"
+                                class="search-input"
+                            />
+                            <button *ngIf="searchQuery" type="button" class="clear-search" (click)="searchQuery = ''">
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- MENU AVATAR UTILISATEUR -->
+                <app-user-avatar></app-user-avatar>
+                
+                <!-- PANIER -->
+                <a routerLink="/shopping-cart" class="cart-link">
+                    <img src="assets/img/icons/bag.png" alt="Cart">
+                    <span>{{ cartItems }}</span>
+                </a>
+            </div>
             
             <!-- NAVIGATION PRINCIPALE -->
             <nav class="main-menu mobile-menu">

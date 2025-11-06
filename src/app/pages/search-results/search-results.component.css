@@ -1,0 +1,140 @@
+.search-results-page {
+  padding: 40px 0;
+  min-height: 60vh;
+}
+
+.search-header {
+  text-align: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 20px;
+}
+
+.search-header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.search-query {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+}
+
+.no-query {
+  font-size: 1.1rem;
+  color: #888;
+  margin: 0;
+}
+
+.results-section {
+  margin-top: 30px;
+}
+
+.results-count {
+  margin-bottom: 20px;
+}
+
+.results-count p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.product-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 15px;
+}
+
+.product-name {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.product-category {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.product-price {
+  font-weight: bold;
+  color: #2c5aa0;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.no-results, .no-search {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.no-results-icon, .no-search-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.no-results h2, .no-search h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.no-results p, .no-search p {
+  color: #666;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+/* Mode sombre */
+.dark-theme .search-header h1 {
+  color: #f5f5f5;
+}
+
+.dark-theme .search-query,
+.dark-theme .no-query {
+  color: #ccc;
+}
+
+.dark-theme .product-card {
+  background: #374151;
+  border-color: #4b5563;
+}
+
+.dark-theme .product-name {
+  color: #f5f5f5;
+}
+
+.dark-theme .product-category {
+  color: #ccc;
+}
+
+.dark-theme .results-count p {
+  color: #ccc;
+}

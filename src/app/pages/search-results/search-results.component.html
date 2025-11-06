@@ -1,0 +1,38 @@
+<div class="search-results-page">
+  <div class="container">
+    <div class="search-header">
+      <h1>Résultats de recherche</h1>
+      <p *ngIf="searchQuery" class="search-query">Vous avez recherché : "{{ searchQuery }}"</p>
+      <p *ngIf="!searchQuery" class="no-query">Aucun terme de recherche spécifié</p>
+    </div>
+
+    <div *ngIf="searchQuery && products.length > 0" class="results-section">
+      <div class="results-count">
+        <p>{{ products.length }} produit(s) trouvé(s)</p>
+      </div>
+      <div class="products-grid">
+        <div *ngFor="let product of products" class="product-card">
+          <img [src]="product.image" [alt]="product.name" class="product-image">
+          <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-category">{{ product.category }}</p>
+            <p class="product-price">{{ product.price }} €</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="searchQuery && products.length === 0" class="no-results">
+      <div class="no-results-icon">🔍</div>
+      <h2>Aucun résultat trouvé</h2>
+      <p>Aucun produit ne correspond à "{{ searchQuery }}"</p>
+      <p>Vérifiez l'orthographe ou essayez d'autres termes</p>
+    </div>
+
+    <div *ngIf="!searchQuery" class="no-search">
+      <div class="no-search-icon">💡</div>
+      <h2>Effectuez une recherche</h2>
+      <p>Utilisez la barre de recherche en haut de la page pour trouver des produits</p>
+    </div>
+  </div>
+</div>

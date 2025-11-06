@@ -1,13 +1,14 @@
 import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
 import { UserAvatarComponent } from '../user-avatar/user-avatar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive,UserAvatarComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, UserAvatarComponent, FormsModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
@@ -16,16 +17,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isSearchOpen = false;
   isMobileMenuOpen = false;
   isDarkTheme = false;
+  searchQuery = '';
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: any,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme();
     
-    // Vérification immédiate
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         const hasClass = document.body.classList.contains('dark-theme');
@@ -46,12 +48,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   toggleTheme() {
-    
     this.themeService.toggleTheme();
     this.isDarkTheme = this.themeService.isDarkTheme();
     
-    
-    // Vérification visuelle
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         const hasClass = document.body.classList.contains('dark-theme');
@@ -61,10 +60,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   onSearch(event: Event) {
     event.preventDefault();
-    const searchInput = document.getElementById('search-input') as HTMLInputElement;
-    if (searchInput && searchInput.value.trim()) {
-      this.isSearchOpen = false;
-      searchInput.value = '';
+    if (this.searchQuery.trim()) {
+      this.router.navigate(['/search'], { 
+        queryParams: { q: this.searchQuery.trim() } 
+      });
+      this.searchQuery = '';
     }
   }
 
